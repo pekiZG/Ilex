@@ -36,6 +36,8 @@
             this.tabPageSync = new System.Windows.Forms.TabPage();
             this.tabPageBackup = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxCategories = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.menuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageSync.SuspendLayout();
@@ -85,6 +87,8 @@
             // 
             // tabPageSync
             // 
+            this.tabPageSync.Controls.Add(this.groupBox2);
+            this.tabPageSync.Controls.Add(this.groupBoxCategories);
             this.tabPageSync.Controls.Add(this.groupBox1);
             this.tabPageSync.Location = new System.Drawing.Point(4, 22);
             this.tabPageSync.Name = "tabPageSync";
@@ -106,12 +110,30 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(8, 6);
+            this.groupBox1.Location = new System.Drawing.Point(408, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(600, 100);
+            this.groupBox1.Size = new System.Drawing.Size(200, 208);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
+            // 
+            // groupBoxCategories
+            // 
+            this.groupBoxCategories.Location = new System.Drawing.Point(9, 7);
+            this.groupBoxCategories.Name = "groupBoxCategories";
+            this.groupBoxCategories.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxCategories.TabIndex = 1;
+            this.groupBoxCategories.TabStop = false;
+            this.groupBoxCategories.Text = "Categories";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(9, 114);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Products";
             // 
             // IlexForm
             // 
@@ -143,6 +165,8 @@
         private System.Windows.Forms.TabPage tabPageSync;
         private System.Windows.Forms.TabPage tabPageBackup;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxCategories;
     }
 }
 
