@@ -45,13 +45,15 @@
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.labelUsername = new System.Windows.Forms.Label();
             this.tabPageBackup = new System.Windows.Forms.TabPage();
+            this.FTPButton = new System.Windows.Forms.Button();
+            this.labelWhereToBackup = new System.Windows.Forms.Label();
             this.buttonSelectLocation = new System.Windows.Forms.Button();
             this.textBoxSaveLocation = new System.Windows.Forms.TextBox();
             this.groupBoxNotifications = new System.Windows.Forms.GroupBox();
             this.textBoxNotifications = new System.Windows.Forms.TextBox();
             this.BackupButton = new System.Windows.Forms.Button();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.labelWhereToBackup = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.menuStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageSync.SuspendLayout();
@@ -210,6 +212,8 @@
             // 
             // tabPageBackup
             // 
+            this.tabPageBackup.Controls.Add(this.progressBar);
+            this.tabPageBackup.Controls.Add(this.FTPButton);
             this.tabPageBackup.Controls.Add(this.labelWhereToBackup);
             this.tabPageBackup.Controls.Add(this.buttonSelectLocation);
             this.tabPageBackup.Controls.Add(this.textBoxSaveLocation);
@@ -222,6 +226,25 @@
             this.tabPageBackup.TabIndex = 1;
             this.tabPageBackup.Text = "Backup";
             this.tabPageBackup.UseVisualStyleBackColor = true;
+            // 
+            // FTPButton
+            // 
+            this.FTPButton.Location = new System.Drawing.Point(278, 132);
+            this.FTPButton.Name = "FTPButton";
+            this.FTPButton.Size = new System.Drawing.Size(75, 23);
+            this.FTPButton.TabIndex = 5;
+            this.FTPButton.Text = "FTP";
+            this.FTPButton.UseVisualStyleBackColor = true;
+            this.FTPButton.Click += new System.EventHandler(this.FTPButton_Click);
+            // 
+            // labelWhereToBackup
+            // 
+            this.labelWhereToBackup.AutoSize = true;
+            this.labelWhereToBackup.Location = new System.Drawing.Point(73, 61);
+            this.labelWhereToBackup.Name = "labelWhereToBackup";
+            this.labelWhereToBackup.Size = new System.Drawing.Size(93, 13);
+            this.labelWhereToBackup.TabIndex = 4;
+            this.labelWhereToBackup.Text = "Where to backup:";
             // 
             // buttonSelectLocation
             // 
@@ -269,14 +292,12 @@
             this.BackupButton.UseVisualStyleBackColor = true;
             this.BackupButton.Click += new System.EventHandler(this.BackupButton_Click);
             // 
-            // labelWhereToBackup
+            // progressBar
             // 
-            this.labelWhereToBackup.AutoSize = true;
-            this.labelWhereToBackup.Location = new System.Drawing.Point(73, 61);
-            this.labelWhereToBackup.Name = "labelWhereToBackup";
-            this.labelWhereToBackup.Size = new System.Drawing.Size(93, 13);
-            this.labelWhereToBackup.TabIndex = 4;
-            this.labelWhereToBackup.Text = "Where to backup:";
+            this.progressBar.Location = new System.Drawing.Point(278, 162);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(248, 23);
+            this.progressBar.TabIndex = 6;
             // 
             // IlexForm
             // 
@@ -288,7 +309,7 @@
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "IlexForm";
-            this.Text = "Ilex d.o.o. - Administration Tools (ver.1.0.0.6)";
+            this.Text = "Ilex d.o.o. - Administration Tools (ver.1.0.0.11)";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.tabControl.ResumeLayout(false);
@@ -330,6 +351,8 @@
         private System.Windows.Forms.TextBox textBoxSaveLocation;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.Label labelWhereToBackup;
+        private System.Windows.Forms.Button FTPButton;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 

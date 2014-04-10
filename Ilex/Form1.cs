@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
+using System.Net;
+using System.IO;
+using System.IO.Compression;
 
 namespace Ilex
 {
@@ -89,6 +92,8 @@ namespace Ilex
             //Backup bk = new Backup();
 
             ////Specify the type of backup, the description, the name, and the database to be backed up. 
+            ////Specify the type of backup, the description, the name, and the database to be backed up. 
+            ////Specify the type of backup, the description, the name, and the database to be backed up. 
             //bk.Action = BackupActionType.Database;
             //bk.Devices.AddDevice(@"E:\Adips2010.bak", DeviceType.File);
             //bk.BackupSetDescription = "Full backup of Adips2010";
@@ -134,6 +139,64 @@ namespace Ilex
             textBoxSaveLocation.Text = saveFileDialog.FileName;
             Properties.Settings.Default.SaveLocation = textBoxSaveLocation.Text;
             Properties.Settings.Default.Save();
+        }
+
+        private void FTPButton_Click(object sender, EventArgs e)
+        {
+            // Prepare the package (Archive it using zip)
+            //string fileToCompress = textBoxSaveLocation.Text;
+            //DirectoryInfo directorySelected = new DirectoryInfo();
+            FileInfo fileToCompress = new FileInfo(textBoxSaveLocation.Text);
+
+            using (FileStream originalFileStream = fileToCompress.OpenRead())
+            {
+                if ((File.GetAttributes(fileToCompress.FullName) & FileAttributes.Hidden) != FileAttributes.Hidden & fileToCompress.Extension != ".gz")
+                {
+                    using (FileStream compressedFileStream = File.Create(fileToCompress.FullName + ".gz"))
+                    {
+                        using (GZipStream compressionStream = new GZipStream(compressedFileStream, CompressionMode.Compress))
+                        {
+                            originalFileStream.CopyTo(compressionStream);
+                            //Console.WriteLine("Compressed {0} from {1} to {2} bytes.", fileToCompress.Name, fileToCompress.Length.ToString(), compressedFileStream.Length.ToString());
+                            textBoxNotifications.Text += "\n File Archived localy.\n";
+                        }
+                    }
+                }
+            }
+
+            // Get the object used to communicate with the server.
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(@"ftp://petar-slat.from.hr/" + fileToCompress.Name + ".gz");
+            request.UsePassive = true;
+            request.UseBinary = true;
+            request.KeepAlive = true;
+            //request.Timeout = 300;
+            //request.ReadWriteTimeout = 300;
+            request.Method = WebRequestMethods.Ftp.UploadFile;
+
+            // This example assumes the FTP site uses anonymous logon.
+            request.Credentials = new NetworkCredential("pekiZG", "Finger_00");
+
+            // Copy the contents of the file to the request stream.
+            StreamReader sourceStream = new StreamReader(textBoxSaveLocation.Text);
+            byte[] fileContents = Encoding.UTF8.GetBytes(sourceStream.ReadToEnd());
+            sourceStream.Close();
+            request.ContentLength = fileContents.Length;
+
+            Stream requestStream = request.GetRequestStream();
+            requestStream.Write(fileContents, 0, fileContents.Length);
+            requestStream.Close();
+
+            //progressBar.Minimum = 0;
+            //progressBar.Maximum = 100;
+            //progressBar.Step = 1;
+
+            FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+
+            textBoxNotifications.Text += "\n Yay, Upload is a success!\n" + response.StatusDescription;
+
+            //Console.WriteLine("Upload File Complete, status {0}", response.StatusDescription);
+
+            response.Close();
         }
     }
 }
